@@ -43,6 +43,12 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
+AUTHORIZATION = (
+    (1, 'Guest'),
+    (2, 'Participant'),
+    (3, 'Admin')
+    )
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     Redefines Django's default User model
@@ -57,6 +63,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False, null=False)
     inviter_id = models.IntegerField(null=True)
     date_invited = models.DateTimeField(null=True)
+    authorization = models.PositiveSmallIntegerField(null=False, default=1)
 
     objects = CustomUserManager()
 
