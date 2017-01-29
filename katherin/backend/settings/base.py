@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Project apps
     'apps.users',
     'apps.realestate',
+    'apps.core',
 ]
 
 MIDDLEWARE = [

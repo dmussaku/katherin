@@ -1,36 +1,18 @@
 from __future__ import unicode_literals
 
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
-from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.utils.html import mark_safe
 
+from apps.core.models import Image
 from apps.users.models import CustomUser
-
-
-class Image(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=200, blank=True, null=True)
-    image = models.ImageField(upload_to='images')
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-    def image_tag(self):
-        return mark_safe(
-            '<img src="/static/%s" width="150" height="150"/>' % self.image)
-
-    image_tag.short_description = 'Image'
-
-    def __unicode__(self):
-        return self.name
 
 
 class City(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200, blank=False, null=False)
-    images = GenericRelation('Image', related_query_name='cities')
+    images = GenericRelation(Image, related_query_name='cities')
     coordinates = JSONField()
 
     def images_tag(self):
@@ -53,7 +35,7 @@ class District(models.Model):
     name = models.CharField(max_length=300, blank=False, null=False)
     coordinates = JSONField()
     city = models.ForeignKey('City', blank=False, null=False, related_name='districts')
-    images = GenericRelation('Image', related_query_name='districts')
+    images = GenericRelation(Image, related_query_name='districts')
 
     def __unicode__(self):
         return self.name
@@ -64,7 +46,7 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length=300, blank=False, null=False)
     coordinates = JSONField()
     district = models.ForeignKey('District', blank=False, null=False, related_name='neighborhoods')
-    images = GenericRelation('Image', related_query_name='neighborhoods')
+    images = GenericRelation(Image, related_query_name='neighborhoods')
 
     def __unicode__(self):
         return self.name
@@ -84,7 +66,7 @@ class Building(models.Model):
     neighborhood = models.ForeignKey(
         'Neighborhood', blank=False, null=False, related_name='buildings')
     tentants = models.ManyToManyField(CustomUser, related_name='buildings')
-    images = GenericRelation('Image', related_query_name='buildings')
+    images = GenericRelation(Image, related_query_name='buildings')
 
     def __unicode__(self):
         return self.name
