@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.realestate',
     'apps.core',
+    'apps.blog',
 ]
 
 MIDDLEWARE = [

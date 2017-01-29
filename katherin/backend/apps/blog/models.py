@@ -11,7 +11,6 @@ class AbstractBlogModel(models.Model):
         CustomUser,
         blank=False,
         null=False,
-        related_name='articles'
     )
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now=True)
@@ -38,9 +37,9 @@ class Article(AbstractBlogModel):
         (PUBLISHED, 'Published'),
         (REMOVED, 'Removed'),
     )
-    title = models.CharField(max_length=300, required=True)
+    title = models.CharField(max_length=300, null=False)
     slug = models.SlugField(max_length=300, null=True, blank=True)
-    content = models.TextField(max_length=10000, required=True)
+    content = models.TextField(max_length=10000, null=False)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=DRAFT)
 
     class Meta:
