@@ -60,3 +60,38 @@ class TestBlogModels(TestCase):
         self.assertEqual(3, article.activities.filter(activity_type=Activity.LIKE).count())
         self.assertEqual(2, article.activities.filter(activity_type=Activity.UP_VOTE).count())
         self.assertEqual(2, article.activities.filter(activity_type=Activity.DOWN_VOTE).count())
+
+    def test_abstract_base_add_comment(self):
+        article = Article.objects.first()
+        author = CustomUser.objects.first()
+
+        self.assertEqual(0, article.comments.count())
+
+        for i in range(3):
+            article.add_comment(
+                'sample comment text %d' % i,
+                author,
+                status=Comment.PUBLISHED
+            )
+
+        self.assertEqual(3, article.comments.count())
+        self.assertEqual(3, article.comments.filter(status=Comment.PUBLISHED).count())
+
+    def test_abstract_base_add_activity(self):
+        article = Article.objects.first()
+        author = CustomUser.objects.first()
+
+        self.assertEqual(0, article.activities.count())
+
+        for i in range(10):
+            article.add_activity(
+                activity_type=Activity.ACTIVITY_TYPES[i % 4][0],
+                author=author
+            )
+
+        self.assertEqual(10, article.activities.count())
+        self.assertEqual(10, Activity.objects.count())
+        self.assertEqual(3, article.activities.filter(activity_type=Activity.FAVORITE).count())
+        self.assertEqual(3, article.activities.filter(activity_type=Activity.LIKE).count())
+        self.assertEqual(2, article.activities.filter(activity_type=Activity.UP_VOTE).count())
+        self.assertEqual(2, article.activities.filter(activity_type=Activity.DOWN_VOTE).count())

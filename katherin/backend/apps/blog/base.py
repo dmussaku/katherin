@@ -17,6 +17,23 @@ class AbstractBlogModel(models.Model):
     class Meta:
         abstract = True
 
+    def add_comment(self, content, author, status='DR'):
+        comment = self.comments.create(
+            content=content,
+            author=author,
+            status=status
+        )
+
+        return comment
+
+    def add_activity(self, activity_type, author):
+        activity = self.activities.create(
+            activity_type=activity_type,
+            author=author
+        )
+
+        return activity
+
 
 class AbstractGenericRelationModel(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
