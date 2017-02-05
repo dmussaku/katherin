@@ -1,1 +1,4 @@
 -r base.txt # includes the base.txt requirements file
+
+ipython==5.1.0
+django-extensions==1.7.6
