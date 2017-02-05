@@ -9,14 +9,14 @@ from .base import AbstractRealestateModel
 
 
 class City(AbstractRealestateModel):
-    coordinates = JSONField()
+    coordinates = JSONField(null=True)
 
     def __unicode__(self):
         return self.name
 
 
 class District(AbstractRealestateModel):
-    coordinates = JSONField()
+    coordinates = JSONField(null=True)
     city = models.ForeignKey('City', blank=False, null=False, related_name='districts')
 
     def __unicode__(self):
@@ -24,7 +24,7 @@ class District(AbstractRealestateModel):
 
 
 class Neighborhood(AbstractRealestateModel):
-    coordinates = JSONField()
+    coordinates = JSONField(null=True)
     district = models.ForeignKey('District', blank=False, null=False, related_name='neighborhoods')
 
     def __unicode__(self):
@@ -39,7 +39,7 @@ class Building(AbstractRealestateModel):
     address = models.CharField(max_length=300, blank=False, null=False)
     house_type = models.IntegerField(choices=HOUSE_TYPE_CHOICES)
     coordinates = JSONField()
-    specs = JSONField()
+    specs = JSONField(null=True)
     neighborhood = models.ForeignKey(
         'Neighborhood', blank=False, null=False, related_name='buildings')
     tentants = models.ManyToManyField(CustomUser, related_name='buildings')

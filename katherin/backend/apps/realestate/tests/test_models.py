@@ -1,7 +1,7 @@
 from loremipsum import generate_paragraph, generate_sentence
 from django.test import TestCase
 
-from apps.realestate.models import City
+from apps.realestate.models import City, District
 from apps.users.models import CustomUser
 
 
@@ -22,21 +22,6 @@ class TestRealestate(TestCase):
             },
             author=admin
         )
-
-    def test_city_creation(self):
-        almaty = City.objects.filter(name='Almaty').first()
-        self.assertEqual(1, City.objects.count())
-        self.assertEqual('Almaty', almaty.name)
-
-        self.assertEqual(1, City.objects.filter(coordinates__latitude__gt=42).count())
-        self.assertEqual(
-            City.objects.count(),
-            City.objects.filter(
-                coordinates__latitude__gt=42,
-                coordinates__longitude__lt=77
-            ).count()
-        )
-
         City.objects.create(
             name='New York',
             coordinates={
@@ -46,5 +31,39 @@ class TestRealestate(TestCase):
             author=CustomUser.objects.first()
         )
 
-        self.assertEqual(2, CustomUser.objects.count())
+    def test_city_creation(self):
+        almaty = City.objects.filter(name='Almaty').first()
+        self.assertEqual(2, City.objects.count())
+        self.assertEqual('Almaty', almaty.name)
+
+        self.assertEqual(1, City.objects.filter(coordinates__latitude__gt=42).count())
+        self.assertEqual(
+            1,
+            City.objects.filter(
+                coordinates__latitude__gt=42,
+                coordinates__longitude__lt=77
+            ).count()
+        )
         self.assertEqual(2, City.objects.filter(coordinates__latitude__range=(39, 44)).count())
+        self.assertEqual(2, City.objects.filter(coordinates__longitude__range=(-75, 77)).count())
+
+    def test_district_creation(self):
+        almaty = City.objects.filter(name='Almaty').first()
+        ny = City.objects.filter(name='New York').first()
+
+        for i in range(3):
+            District.objects.create(
+                name='District %d' % i,
+                city=almaty,
+                author=CustomUser.objects.first()
+            )
+        for i in range(6):
+            District.objects.create(
+                name='District %d' % i,
+                city=ny,
+                author=CustomUser.objects.first()
+            )
+
+        self.assertEqual(3, almaty.districts.count())
+        self.assertEqual(6, ny.districts.count())
+        self.assertEqual(9, District.objects.count())
