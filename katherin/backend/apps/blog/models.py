@@ -11,9 +11,9 @@ class Article(AbstractBlogModel):
     PUBLISHED = 'PB'
     REMOVED = 'RM'
     STATUS_CHOICES = (
-        (DRAFT, 'Draft'),
-        (PUBLISHED, 'Published'),
-        (REMOVED, 'Removed'),
+        (DRAFT, _('Draft')),
+        (PUBLISHED, _('Published')),
+        (REMOVED, _('Removed')),
     )
     title = models.CharField(max_length=300, null=False)
     slug = models.SlugField(max_length=300, null=True, blank=True)
@@ -40,10 +40,10 @@ class Comment(AbstractBlogModel, AbstractGenericRelationModel):
     UPDATED = 'UP'
     REMOVED = 'RM'
     STATUS_CHOICES = (
-        (DRAFT, 'Draft'),
-        (PUBLISHED, 'Published'),
-        (UPDATED, 'Updated'),
-        (REMOVED, 'Removed'),
+        (DRAFT, _('Draft')),
+        (PUBLISHED, _('Published')),
+        (UPDATED, _('Updated')),
+        (REMOVED, _('Removed')),
     )
     content = models.TextField(max_length=500)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=DRAFT)
@@ -63,10 +63,10 @@ class Activity(AbstractBlogModel, AbstractGenericRelationModel):
     UP_VOTE = 'UV'
     DOWN_VOTE = 'DV'
     ACTIVITY_TYPES = (
-        (FAVORITE, 'Favorite'),
-        (LIKE, 'Like'),
-        (UP_VOTE, 'Up Vote'),
-        (DOWN_VOTE, 'Down Vote'),
+        (FAVORITE, _('Favorite')),
+        (LIKE, _('Like')),
+        (UP_VOTE, _('Up Vote')),
+        (DOWN_VOTE, _('Down Vote')),
     )
     activity_type = models.CharField(max_length=2, choices=ACTIVITY_TYPES)
 
