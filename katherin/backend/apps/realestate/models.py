@@ -37,8 +37,8 @@ class Building(AbstractRealestateModel):
         (2, _('ApartmentBuilding')),
     )
     address = models.CharField(max_length=300, blank=False, null=False)
-    house_type = models.IntegerField(choices=HOUSE_TYPE_CHOICES)
-    coordinates = JSONField()
+    house_type = models.IntegerField(choices=HOUSE_TYPE_CHOICES, default=1)
+    coordinates = JSONField(null=True)
     specs = JSONField(null=True)
     neighborhood = models.ForeignKey(
         'Neighborhood', blank=False, null=False, related_name='buildings')
