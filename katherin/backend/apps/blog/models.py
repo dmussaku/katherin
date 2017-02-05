@@ -1,31 +1,9 @@
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
+
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from apps.users.models import CustomUser
-
-
-class AbstractBlogModel(models.Model):
-    author = models.ForeignKey(
-        CustomUser,
-        blank=False,
-        null=False,
-    )
-    created = models.DateTimeField(auto_now_add=True)
-    edited = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class AbstractGenericRelationModel(models.Model):
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-    class Meta:
-        abstract = True
+from .base import AbstractBlogModel, AbstractGenericRelationModel
 
 
 class Article(AbstractBlogModel):
@@ -41,6 +19,8 @@ class Article(AbstractBlogModel):
     slug = models.SlugField(max_length=300, null=True, blank=True)
     content = models.TextField(max_length=10000, null=False)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=DRAFT)
+    comments = GenericRelation('Comment', related_query_name='articles')
+    activities = GenericRelation('Activity', related_query_name='articles')
 
     class Meta:
         verbose_name = _("Article")
@@ -54,7 +34,7 @@ class Article(AbstractBlogModel):
         return '%s by %s' % (self.title[:20], self.author)
 
 
-class Comment(AbstractBlogModel):
+class Comment(AbstractBlogModel, AbstractGenericRelationModel):
     DRAFT = 'DR'
     PUBLISHED = 'PB'
     UPDATED = 'UP'
@@ -77,7 +57,7 @@ class Comment(AbstractBlogModel):
         return self.content[:20]
 
 
-class Activity(AbstractBlogModel):
+class Activity(AbstractBlogModel, AbstractGenericRelationModel):
     FAVORITE = 'FV'
     LIKE = 'LK'
     UP_VOTE = 'UV'
@@ -88,7 +68,6 @@ class Activity(AbstractBlogModel):
         (UP_VOTE, 'Up Vote'),
         (DOWN_VOTE, 'Down Vote'),
     )
-
     activity_type = models.CharField(max_length=2, choices=ACTIVITY_TYPES)
 
     class Meta:
