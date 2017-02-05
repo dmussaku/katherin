@@ -22,12 +22,11 @@ class TestBlogModels(TestCase):
             )
 
     def test_article_creation(self):
-        article = Article.objects.create(
+        Article.objects.create(
             title='Test Article',
             content=generate_paragraph()[2],
             author=CustomUser.objects.first()
         )
-        print(article)
 
         self.assertEqual(4, Article.objects.count())
 
