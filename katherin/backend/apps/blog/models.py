@@ -1,6 +1,7 @@
 
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from .base import AbstractBlogModel, AbstractGenericRelationModel
@@ -32,6 +33,12 @@ class Article(AbstractBlogModel):
 
     def __unicode__(self):
         return '%s by %s' % (self.title[:20], self.author)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        super(self.__class__, self).save(*args, **kwargs)
 
 
 class Comment(AbstractBlogModel, AbstractGenericRelationModel):
