@@ -1,10 +1,19 @@
 # -*- coding: utf-8 -*-
+"""
+Models for users accounts management
+    models: CustomUser, Invite
+"""
+from datetime import timedelta
 
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.contrib.auth.models import Group
+from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+
+from utils.security_utils import generate_token
+from utils.exceptions import CreateInstanceException
 
 
 class CustomUserManager(BaseUserManager):
@@ -43,16 +52,15 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-AUTHORIZATION = (
-    (1, 'Guest'),
-    (2, 'Participant'),
-    (3, 'Admin')
-    )
-
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     Redefines Django's default User model
     """
+    AUTHORIZATION = (
+        (1, 'Guest'),
+        (2, 'Participant'),
+        (3, 'Admin')
+        )
     email = models.EmailField(verbose_name='email address', max_length=128, unique=True, null=False)
     token = models.CharField(max_length=128, null=True, unique=True)
     first_name = models.CharField(max_length=80, null=False)
@@ -84,3 +92,38 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __repr__(self):
         return '<CustomUser %r>' % self.email
+
+
+class Invite(models.Model):
+    """
+    Invitation token management model
+    """
+    token = models.CharField(max_length=64)
+    date_create = models.DateField(auto_now_add=True)
+    date_expire = models.DateField(default=timezone.now() + timedelta(days=7))
+    inviter = models.ForeignKey(CustomUser, models.DO_NOTHING)
+    invitee_email = models.EmailField(max_length=256)
+    authorization = models.PositiveSmallIntegerField(default=2) # Defines whether invitee is Guest, Participant or Admin
+    groups = ArrayField(models.IntegerField(), null=True) # Groups invitee has access to to
+    permissions = ArrayField(models.IntegerField(), null=True) # Permissions invitee has access to
+
+    @classmethod
+    def create(cls, request, email, authorization, groups=None, permissions=None):
+        """
+        Create Invite instance
+        """
+        invite_token = cls(
+            token=generate_token(),
+            inviter=request.user,
+            invitee_email=email,
+            authorization=authorization,
+            groups=groups,
+            permissions=permissions
+            )
+        try:
+            invite_token.save()
+        except Exception as e:
+            # TODO: Send exception to Sentry
+            raise CreateInstanceException('Could not create invite token.')
+
+        return invite_token

@@ -1,0 +1,68 @@
+[
+	{
+		"model": "users.customuser", 
+		"pk": 1, 
+		"fields": {
+			"password": "pbkdf2_sha256$30000$Dpq3PqTfJYFc$Yuz8OOcLvs/PtN0cdRRBngMZN3p4y1H39Zn6l7G+Taw=", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"email": "amir@katherin.com", 
+			"token": null, 
+			"first_name": "Amir", 
+			"last_name": "Meirbekov", 
+			"phone": null, 
+			"is_accepted": null, 
+			"is_active": true, 
+			"is_staff": false, 
+			"inviter_id": null, 
+			"date_invited": null, 
+			"authorization": 1, 
+			"groups": [], 
+			"user_permissions": []
+		}
+	},
+	{
+		"model": "users.customuser", 
+		"pk": 2, 
+		"fields": {
+			"password": "pbkdf2_sha256$30000$Dpq3PqTfJYFc$Yuz8OOcLvs/PtN0cdRRBngMZN3p4y1H39Zn6l7G+Taw=", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"email": "denik@katherin.com", 
+			"token": null, 
+			"first_name": "Danik", 
+			"last_name": "Dakosha", 
+			"phone": null, 
+			"is_accepted": null, 
+			"is_active": true, 
+			"is_staff": false, 
+			"inviter_id": null, 
+			"date_invited": null, 
+			"authorization": 1, 
+			"groups": [], 
+			"user_permissions": []
+		}
+	},
+	{
+		"model": "users.customuser", 
+		"pk": 3, 
+		"fields": {
+			"password": "pbkdf2_sha256$30000$Dpq3PqTfJYFc$Yuz8OOcLvs/PtN0cdRRBngMZN3p4y1H39Zn6l7G+Taw=", 
+			"last_login": null, 
+			"is_superuser": false, 
+			"email": "sandy@katherin.com", 
+			"token": null, 
+			"first_name": "Sandy", 
+			"last_name": "Sandybekova", 
+			"phone": null, 
+			"is_accepted": null, 
+			"is_active": true, 
+			"is_staff": false, 
+			"inviter_id": null, 
+			"date_invited": null, 
+			"authorization": 1, 
+			"groups": [], 
+			"user_permissions": []
+		}
+	}
+]
