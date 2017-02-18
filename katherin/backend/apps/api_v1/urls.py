@@ -7,7 +7,8 @@ from .views import *
 
 
 urlpatterns = [
-    ### news api ####
-    # url(r'^auth/$', AuthIndex.as_view()),
-    #################
-  	]
+    #### news api ####
+    url(r'^auth/$', AuthIndex.as_view()),
+    ##################
+    ]
+    

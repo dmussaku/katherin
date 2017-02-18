@@ -12,15 +12,15 @@ class UsersIndex(APIView):
     Handles requests coming to /api/v1/users/
     """
     def post(self, request):
-    	"""
-    	User account creation with permissions defined in request payload
-    	"""
+        """
+        User account creation with permissions defined in request payload
+        """
         pass
 
 
 class UsersActivate(APIView):
-	"""
-	Handles requests coming to /api/v1/users/activate/
-	"""
-	def post(self, request):
-		pass
+    """
+    Handles requests coming to /api/v1/users/activate/
+    """
+    def post(self, request):
+        pass
