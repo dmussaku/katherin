@@ -15,3 +15,11 @@ DATABASES = {
 }
 
 INSTALLED_APPS += ('django_extensions', )
+
+SHELL_PLUS_PRE_IMPORTS = (
+    'json',
+    ('apps.blog.api.activity.serializers', ('ActivitySerializer', )),
+    ('apps.blog.api.article.serializers', ('ArticleSerializer', )),
+    ('apps.blog.api.comment.serializers', ('CommentSerializer', )),
+    ('apps.blog.api.post.serializers', ('PostSerializer', )),
+)
