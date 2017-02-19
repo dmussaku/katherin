@@ -14,6 +14,9 @@ DATABASES = {
     }
 }
 
+STATIC_ROOT = os.path.join(FRONTEND_DIR, 'dist/static')
+STATICFILES_DIRS = [os.path.join(FRONTEND_DIR, 'dist')]
+
 INSTALLED_APPS += ('django_extensions', )
 
 SHELL_PLUS_PRE_IMPORTS = (

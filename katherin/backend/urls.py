@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from rest_framework.routers import DefaultRouter
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 from apps.blog.api.router import router as blog_router
 
@@ -24,6 +25,7 @@ router = DefaultRouter()
 router.registry.extend(blog_router.registry)
 
 urlpatterns = [
+    url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls)),
 ]
