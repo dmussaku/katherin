@@ -41,6 +41,23 @@ class Article(AbstractBlogModel):
         super(self.__class__, self).save(*args, **kwargs)
 
 
+class Post(AbstractBlogModel):
+    content = models.TextField(max_length=5000, null=False)
+    comments = GenericRelation('Comment', related_query_name='articles')
+    activities = GenericRelation('Activity', related_query_name='articles')
+
+    class Meta:
+        verbose_name = _("Post")
+        verbose_name_plural = _("Posts")
+        ordering = ("-created",)
+
+
+# class Event(AbstractBlogModel):
+#     title = models.CharField(max_length=300, null=False)
+#     slug = models.SlugField(max_length=300, null=True, blank=True)
+#     content = models.TextField(max_length=10000, null=False)
+
+
 class Comment(AbstractBlogModel, AbstractGenericRelationModel):
     DRAFT = 'DR'
     PUBLISHED = 'PB'
