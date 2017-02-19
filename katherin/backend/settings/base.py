@@ -132,3 +132,13 @@ STATIC_URL = '/static/'
 # Set custom user model to handle authentication via email
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
+# DRF settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+}
