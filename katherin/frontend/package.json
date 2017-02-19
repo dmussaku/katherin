@@ -9,8 +9,8 @@
     "build": "NODE_ENV=production webpack --watch-poll"
   },
   "dependencies": {
-    "axios": "^0.15.2",
-    "lodash": "^4.17.2",
+    "axios": "^0.15.3",
+    "lodash": "^4.17.4",
     "vue": "^2.1.10",
     "vue-router": "^2.2.1"
   },
