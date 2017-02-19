@@ -10,6 +10,9 @@ class TestPostUsersActivate(APITestCase):
     def tearDown(self):
         pass
 
+    def test_non_authenticated_users_can_not_access_API(self):
+        response = self.client.post('/api/v2/users/')
+
     def test_data_validation(self):
         pass
 

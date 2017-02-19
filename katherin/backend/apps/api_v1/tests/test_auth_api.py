@@ -3,8 +3,6 @@ import json
 
 from rest_framework.test import APITestCase, APIClient
 
-from apps.users.models import CustomUser
-
 
 class TestPostAuthIndex(APITestCase):
 
@@ -15,9 +13,6 @@ class TestPostAuthIndex(APITestCase):
 
     def tearDown(self):
         pass
-
-    def test_data_validation(self):
-        self.assertEqual(CustomUser.objects.count(), 3)
 
     def test_invalid_data_submitted(self):
         response = self.client.post('/api/v1/auth/', follow=True)

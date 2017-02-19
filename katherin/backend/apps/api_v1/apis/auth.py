@@ -35,7 +35,6 @@ class AuthIndex(APIView):
         if user is not None and user.is_active:
             auth.login(request, user)
         else:
-            # Don't return any sensible 
             raise PermissionDenied
         content = {
             'success': True

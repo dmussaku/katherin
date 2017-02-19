@@ -56,22 +56,25 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
     Redefines Django's default User model
     """
+    GUEST = 1
+    PARTICIPANT = 2
+    ADMIN = 3
     AUTHORIZATION = (
-        (1, 'Guest'),
-        (2, 'Participant'),
-        (3, 'Admin')
+        (GUEST, 'Guest'),
+        (PARTICIPANT, 'Participant'),
+        (ADMIN, 'Admin')
         )
     email = models.EmailField(verbose_name='email address', max_length=128, unique=True, null=False)
     token = models.CharField(max_length=128, null=True, unique=True)
-    first_name = models.CharField(max_length=80, null=False)
-    last_name = models.CharField(max_length=80, null=False)
+    first_name = models.CharField(max_length=80, null=True)
+    last_name = models.CharField(max_length=80, null=True)
     phone = models.CharField(max_length=40, null=True)
     is_accepted = models.NullBooleanField(null=True)
     is_active = models.BooleanField(default=False, null=False)
     is_staff = models.BooleanField(default=False, null=False)
     inviter_id = models.IntegerField(null=True)
     date_invited = models.DateTimeField(null=True)
-    authorization = models.PositiveSmallIntegerField(null=False, default=1)
+    authorization = models.PositiveSmallIntegerField(choices=AUTHORIZATION, null=False, default=1)
 
     objects = CustomUserManager()
 

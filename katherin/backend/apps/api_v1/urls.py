@@ -10,5 +10,8 @@ urlpatterns = [
     #### news api ####
     url(r'^auth/$', AuthIndex.as_view()),
     ##################
+
+    #### invites api ####
+    url(r'^invites/$', InvitesIndex.as_view()),
+    #####################
     ]
-    
