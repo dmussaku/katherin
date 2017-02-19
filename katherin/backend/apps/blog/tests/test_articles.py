@@ -5,7 +5,7 @@ from apps.blog.models import Article, Comment, Activity
 from apps.users.models import CustomUser
 
 
-class TestBlogModels(TestCase):
+class TestArticles(TestCase):
 
     def setUp(self):
         CustomUser.objects.create_user(
