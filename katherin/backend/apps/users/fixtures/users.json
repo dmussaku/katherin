@@ -3,7 +3,7 @@
 		"model": "users.customuser", 
 		"pk": 1, 
 		"fields": {
-			"password": "pbkdf2_sha256$30000$Dpq3PqTfJYFc$Yuz8OOcLvs/PtN0cdRRBngMZN3p4y1H39Zn6l7G+Taw=", 
+			"password": "pbkdf2_sha256$30000$PFexBfCZL8l4$meISsuBWt39KzAvRUxxxN11iu6NOw2VSYpp1bqio8aU=", 
 			"last_login": null, 
 			"is_superuser": false, 
 			"email": "amir@katherin.com", 
@@ -25,7 +25,7 @@
 		"model": "users.customuser", 
 		"pk": 2, 
 		"fields": {
-			"password": "pbkdf2_sha256$30000$Dpq3PqTfJYFc$Yuz8OOcLvs/PtN0cdRRBngMZN3p4y1H39Zn6l7G+Taw=", 
+			"password": "pbkdf2_sha256$30000$PFexBfCZL8l4$meISsuBWt39KzAvRUxxxN11iu6NOw2VSYpp1bqio8aU=", 
 			"last_login": null, 
 			"is_superuser": false, 
 			"email": "denik@katherin.com", 
@@ -47,7 +47,7 @@
 		"model": "users.customuser", 
 		"pk": 3, 
 		"fields": {
-			"password": "pbkdf2_sha256$30000$Dpq3PqTfJYFc$Yuz8OOcLvs/PtN0cdRRBngMZN3p4y1H39Zn6l7G+Taw=", 
+			"password": "pbkdf2_sha256$30000$PFexBfCZL8l4$meISsuBWt39KzAvRUxxxN11iu6NOw2VSYpp1bqio8aU=", 
 			"last_login": null, 
 			"is_superuser": false, 
 			"email": "sandy@katherin.com", 
