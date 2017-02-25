@@ -15,7 +15,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.synced_folder "./katherin", "/www/katherin"
 
-  # config.vm.provision "docker"
+  config.vm.provision "docker"
   
   # # Pull MySQL docker images and create container for storing db data
   # config.vm.provision "shell", inline: <<-SHELL

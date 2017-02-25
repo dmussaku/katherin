@@ -18,7 +18,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install setuptools
 
 # Copy folder with python dependencies and install them
-COPY katherin_back/reqs/ /reqs
+COPY backend/reqs/ /reqs
 RUN pip3 install -r /reqs/dev.txt
 
 # Define mounting points from external containers
