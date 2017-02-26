@@ -103,7 +103,7 @@ class Invite(models.Model):
     """
     token = models.CharField(max_length=64)
     date_create = models.DateField(auto_now_add=True)
-    date_expire = models.DateField(default=timezone.now() + timedelta(days=7))
+    date_expire = models.DateField()
     inviter = models.ForeignKey(CustomUser, models.DO_NOTHING)
     invitee_email = models.EmailField(max_length=256)
     authorization = models.PositiveSmallIntegerField(default=2) # Defines whether invitee is Guest, Participant or Admin

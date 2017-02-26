@@ -2,7 +2,6 @@
 
 from .base import *
 
-DB_HOST = os.environ.get('POSTGRES_PORT_5432_TCP_ADDR')
 
 DATABASES = {
     'default': {
