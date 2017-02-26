@@ -10,7 +10,7 @@ services:
     volumes:
       - katherin-web-logs:/logs
       - katherin-web-frontend:/katherin/frontend
-    entrypoint: /katherin/entrypoint.sh
+    # entrypoint: /katherin/entrypoint.sh
     environment:
       DJANGO_SETTINGS_MODULE: 'settings.prod'
 

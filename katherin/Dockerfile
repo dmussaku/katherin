@@ -40,5 +40,5 @@ RUN npm install
 RUN npm run build
 
 # Define mounting points from external containers
-WORKDIR /katherin
+WORKDIR /katherin/backend
 VOLUME ["/www/katherin/"]
