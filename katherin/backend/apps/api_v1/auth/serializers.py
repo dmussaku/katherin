@@ -4,6 +4,14 @@ from rest_framework import serializers
 from apps.users.models import Invite
 
 
+class LoginSerializer(serializers.Serializer):
+    """
+    Serializes user's login credentials
+    """
+    email = serializers.EmailField()
+    password = serializers.CharField(max_length=128)
+
+
 class InviteSerializer(serializers.Serializer):
     """
     Serializes invites data

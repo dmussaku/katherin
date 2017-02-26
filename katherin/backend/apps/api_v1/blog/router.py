@@ -1,8 +1,7 @@
 
 from rest_framework import routers
 
-from .article.api import ArticleViewSet
-from .post.api import PostViewSet
+from .api import ArticleViewSet, PostViewSet
 
 
 router = routers.SimpleRouter()
