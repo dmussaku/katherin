@@ -30,11 +30,15 @@ RUN pip3 install setuptools
 WORKDIR /katherin/backend/reqs
 RUN pip3 install -r dev.txt
 
+# Create logs directory
+RUN mkdir /logs
+RUN chmod +x /katherin/entrypoint.sh
+
 # npm install and build
 WORKDIR /katherin/frontend
 RUN npm install
 RUN npm run build
 
 # Define mounting points from external containers
-WORKDIR /katherin/katherin
+WORKDIR /katherin
 VOLUME ["/www/katherin/"]

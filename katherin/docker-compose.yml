@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+  katherin-web:
+    restart: always
+    build: 
+      context: .
+    expose:
+      - "8000"
+    volumes:
+      - katherin-web-logs:/logs
+      - katherin-web-frontend:/katherin/frontend
+    entrypoint: /katherin/entrypoint.sh
+    environment:
+      DJANGO_SETTINGS_MODULE: 'settings.prod'
+
+    working_dir: /katherin/backend
+    depends_on:
+      - katherin-db
+    command: /usr/local/bin/gunicorn -b :8000 -w 4 wsgi --log-level=debug --log-file=/logs/gunicorn.log
+
+  katherin-nginx:
+    restart: always
+    build: ./nginx/
+    ports: 
+      - "80:80"
+    volumes:
+      - katherin-nginx-logs:/logs
+      - katherin-web-frontend:/katherin/frontend
+    links:
+      - katherin-web:katherin-web
+
+  katherin-db:
+    image: postgres:9.6
+    volumes:
+      - katherin-db-volume:/data/postgres
+    expose:
+      - 5432
+
+
+volumes:
+  katherin-web-logs:
+  katherin-nginx-logs:
+  katherin-web-frontend:
+  katherin-db-volume:

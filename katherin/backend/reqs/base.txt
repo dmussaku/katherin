@@ -1,6 +1,7 @@
 appdirs==1.4.0
 Django==1.10.5
 djangorestframework==3.5.3
+gunicorn==19.6.0
 loremipsum==1.0.5
 packaging==16.8
 Pillow==4.0.0
