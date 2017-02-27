@@ -32,8 +32,12 @@ services:
 
   katherin-db:
     image: postgres:9.6
+    environment:
+      - POSTGRES_USER:'katherin'
+      - POSTGRES_PASSWORD:'katherin'
+      - POSTGRES_DB:'katherin_db'
     volumes:
-      - katherin-db-volume:/data/postgres
+      - katherin-db-volume:/var/lib/postgresql/data
     expose:
       - 5432
 
